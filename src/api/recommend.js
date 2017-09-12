@@ -27,7 +27,7 @@ export function getDiscList() {
     categoryId: 10000000,
     rnd: Math.random(),
     format: 'json',
-    g_tk: 5381
+    g_tk: 67232076
   });
 
   return axios.get(url, {
