@@ -37,6 +37,7 @@ export const playerMixin = {
       'playlist',
       'currentSong',
       'mode',
+      'favoriteList'
     ])
   },
   methods: {
@@ -59,13 +60,38 @@ export const playerMixin = {
       })
       this.setCurrentIndex(index);
     },
+    getFavoriteIcon(song) {
+      if (this.isFavorite(song)) {
+        return 'icon-favorite';
+      }
+      else {
+        return 'icon-not-favorite';
+      }
+    },
+    toggleFavorite(song) {
+      if (this.isFavorite((song))) {
+        this.deleteFavoriteList(song);
+      }
+      else {
+        this.saveFavoriteList(song);
+      }
+    },
+    isFavorite(song) {
+      const index = this.favoriteList.findIndex((item) => {
+        return item.id === song.id;
+      })
+      return index > -1;
+    },
     ...mapMutations({
       setPlayMode: 'SET_PLAY_MODE',
       setPlaylist: 'SET_PLAYLIST',
       setCurrentIndex: 'SET_CURRENT_INDEX',
       setPlayingState: 'SET_PLAYING_STATE'
     }),
-    ...mapActions([])
+    ...mapActions([
+      'saveFavoriteList',
+      'deleteFavoriteList'
+    ])
   }
 }
 
@@ -101,4 +127,6 @@ export const searchMixin = {
     ])
   }
 }
+
+
 
